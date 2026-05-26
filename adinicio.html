@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <style>
+        /* CSS para adinicio.html (basado en index.html) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #2c2c2c;
+    --background-color: #f9f5f0;
+    --dark-color: #bfbfbf;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.heading-1 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+/* HEADER */
+.container-hero {
+    background-color: var(--background-color);
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.customer-support {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.customer-support i {
+    font-size: 3.3rem;
+}
+
+.content-customer-support {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.container-logo i {
+    font-size: 3rem;
+}
+
+.container-logo h1 a {
+    text-decoration: none;
+    color: #000;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.container-user {
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.container-user .fa-user {
+    font-size: 3rem;
+    color: var(--primary-color);
+    padding-right: 2.5rem;
+    border-right: 1px solid #e2e2e2;
+}
+
+.container-user .fa-basket-shopping {
+    font-size: 3rem;
+    color: var(--primary-color);
+    padding-left: 1rem;
+}
+
+.content-shopping-cart {
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+.container-navbar {
+    background-color: var(--primary-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.navbar .fa-bars {
+    display: none;
+}
+
+.menu {
+    display: flex;
+    gap: 2rem;
+}
+
+.menu li {
+    list-style: none;
+}
+
+.menu a {
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: var(--dark-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.menu a::after {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background-color: #fff;
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.menu a:hover::after {
+    opacity: 1;
+}
+
+.menu a:hover {
+    color: #fff;
+}
+
+.search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 2rem;
+    background-color: #fff;
+    height: 4.4rem;
+    overflow: hidden;
+}
+
+.search-form input {
+    outline: none;
+    font-family: inherit;
+    border: none;
+    width: 25rem;
+    font-size: 1.4rem;
+    padding: 0 2rem;
+    color: #777;
+    cursor: pointer;
+}
+
+.search-form input::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.search-form .btn-search {
+    border: none;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 1rem;
+}
+
+.btn-search i {
+    font-size: 2rem;
+    color: #fff;
+}
+
+/* TABLAS Y BOTONES ADMIN */
+.section {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.btn, .btn-read-more {
+    padding: 6px 12px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.btn-danger {
+    background: #c0392b;
+}
+
+.btn-warning {
+    background: #f39c12;
+}
+
+.btn:hover, .btn-read-more:hover {
+    background: var(--dark-color);
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 8px #0001;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+form.inline {
+    display: inline;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* FOOTER */
+.footer {
+    background-color: var(--primary-color);
+}
+
+.container-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 3rem;
+}
+
+.menu-footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 30rem;
+    gap: 3rem;
+    justify-items: center;
+}
+
+.title-footer {
+    font-weight: 600;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+.contact-info,
+.information,
+.my-account,
+.newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-info ul,
+.information ul,
+.my-account ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-info ul li,
+.information ul li,
+.my-account ul li {
+    list-style: none;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+
+.information ul li a,
+.my-account ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+}
+
+.information ul li a:hover,
+.my-account ul li a:hover {
+    color: var(--dark-color);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icons span {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icons span i {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.facebook {
+    background-color: #3b5998;
+}
+
+.twitter {
+    background-color: #00acee;
+}
+
+.youtube {
+    background-color: #c4302b;
+}
+
+.pinterest {
+    background-color: #c8232c;
+}
+
+.instagram {
+    background: linear-gradient(
+        #405de6,
+        #833ab4,
+        #c13584,
+        #e1306c,
+        #fd1d1d,
+        #f56040,
+        #fcaf45
+    );
+}
+
+.content p {
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 300;
+}
+
+.content input {
+    outline: none;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #d2b495;
+    cursor: pointer;
+    padding: 0.5rem 0 1.2rem;
+    color: var(--dark-color);
+    display: block;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    width: 100%;
+    font-family: inherit;
+}
+
+.content input::-webkit-input-placeholder {
+    color: #eee;
+}
+
+.content button {
+    border: none;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.content button:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+.copyright {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2rem;
+    border-top: 1px solid #d2b495;
+}
+
+.copyright p {
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    html {
+        font-size: 55%;
+    }
+    .hero {
+        padding: 2rem;
+    }
+    .customer-support {
+        display: none;
+    }
+    .content-shopping-cart {
+        display: none;
+    }
+    .navbar {
+        padding: 1rem 2rem;
+    }
+    .navbar .fa-bars {
+        display: block;
+        color: #fff;
+        font-size: 3rem;
+    }
+    .menu {
+        display: none;
+    }
+    .content-banner {
+        max-width: 50rem;
+        margin: 0 auto;
+        padding: 25rem 0;
+    }
+    .menu-footer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .copyright {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 468px) {
+    html {
+        font-size: 42.5%;
+    }
+    .menu-footer{
+        grid-template-columns: 1fr;
+    }
+    .content p{
+        font-size: 1.6rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Administración</h1>
+
+        <!-- Navbar Admin -->
+        <div class="admin-navbar" style="margin-bottom: 30px;">
+            <nav style="background: #2980b9; padding: 12px 0; border-radius: 8px;">
+                <ul style="list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0;">
+                    <li><a href="#productos" style="color: #fff; text-decoration: none; font-weight: bold;">Productos</a></li>
+                    <li><a href="#agregar-producto" style="color: #fff; text-decoration: none; font-weight: bold;">Agregar Producto</a></li>
+                    <li><a href="#clientes" style="color: #fff; text-decoration: none; font-weight: bold;">Clientes</a></li>
+                    <li><a href="#historial" style="color: #fff; text-decoration: none; font-weight: bold;">Historial de Compras</a></li>
+                    <li><a href="{{ url_for('estadisticas') }}" style="color: #fff; text-decoration: none; font-weight: bold;">Estadísticas</a></li>
+                    <li><a href="{{ url_for('confirmar_compra') }}" style="color: #fff; text-decoration: none; font-weight: bold;">Confirmar Compra</a></li>
+                    <li><a href="{{ url_for('inicio') }}" style="color: #fff; text-decoration: none; font-weight: bold;">Salir</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Productos Deportivos -->
+        <div class="section" id="productos">
+            <h2>Productos Deportivos</h2>
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Talla</th>
+                    <th>Stock</th>
+                    <th>Sumar Stock</th>
+                    <th>Acciones</th>
+                </tr>
+                {% for producto in productos %}
+                    {% if edit_idp and edit_idp|int == producto.idp %}
+                    <form method="POST" action="{{ url_for('modificar_producto', idp=producto.idp) }}">
+                        <tr>
+                            <td>{{ producto.idp }}</td>
+                            <td><input type="text" name="nombre" value="{{ producto.nombre }}" required></td>
+                            <td><input type="text" name="marca" value="{{ producto.marca }}" required></td>
+                            <td><input type="number" name="precio" value="{{ producto.precio }}" required></td>
+                            <td><input type="text" name="talla" value="{{ producto.talla }}" required></td>
+                            <td><input type="number" name="stock" value="{{ producto.stock }}" required></td>
+                            <td>
+                                <button type="submit" class="btn btn-warning">Guardar</button>
+                                <a href="{{ url_for('admin_inicio') }}" class="btn">Cancelar</a>
+                            </td>
+                        </tr>
+                    </form>
+                    {% else %}
+                    <tr>
+                        <td>{{ producto.idp }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.marca }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>{{ producto.talla }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('sumar_stock') }}" class="inline" style="display:inline;">
+                                <input type="hidden" name="idp" value="{{ producto.idp }}">
+                                <input type="number" name="cantidad" min="1" style="width:60px;" required>
+                                <button type="submit" class="btn">Sumar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('borrar_producto') }}" class="inline" style="display:inline;">
+                                <input type="hidden" name="idp" value="{{ producto.idp }}">
+                                <button type="submit" class="btn btn-danger">Borrar</button>
+                            </form>
+                            <a href="{{ url_for('admin_inicio', edit_idp=producto.idp) }}" class="btn btn-warning">Modificar</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Formulario para agregar producto -->
+        <div class="section" id="agregar-producto">
+            <form method="POST" action="{{ url_for('agregar_producto') }}" enctype="multipart/form-data">
+                <div class="section">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" required>
+                    <label for="marca">Marca:</label>
+                    <input type="text" name="marca" required>
+                    <label for="precio">Precio:</label>
+                    <input type="number" name="precio" required>
+                    <label for="talla">Talla:</label>
+                    <input type="text" name="talla" required>
+                    <label for="stock">Stock:</label>
+                    <input type="number" name="stock" required>
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" name="imagen" accept="image/*" required>
+                    <button type="submit">Agregar Producto</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Clientes -->
+        <div class="section" id="clientes">
+            <h2>Clientes</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.idc }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.correo }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('borrar_cliente') }}" class="inline" style="display:inline;">
+                            <input type="hidden" name="idc" value="{{ cliente.idc }}">
+                            <button type="submit" class="btn btn-danger">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Historial de compras -->
+        <div class="section" id="historial">
+            <h2>Historial de Compras</h2>
+            {% set ventas = {} %}
+            {% for h in historial %}
+                {% set idv = h[0] %}
+                {% if idv not in ventas %}
+                    {% set ventas = ventas.update({idv: {'cliente': h[1] ~ ' ' ~ h[2], 'fecha': h[3], 'hora': h[4], 'total': h[5], 'productos': [], 'confirmada': h[9], 'estado': h[10]}}) or ventas %}
+                {% endif %}
+                {% set _ = ventas[idv]['productos'].append({'nombre': h[6], 'cantidad': h[7], 'subtotal': h[8]}) %}
+            {% endfor %}
+            {% for idv, v in ventas.items() %}
+                <div style="border:1px solid #ccc; border-radius:8px; margin-bottom:18px; padding:12px; background:#fff;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong>Fecha:</strong> {{ v['fecha'] }}<br>
+                            <strong>Cliente:</strong> {{ v['cliente'] }}
+                        </div>
+                        <button onclick="document.getElementById('modal-{{ idv }}').style.display='block'" class="btn">Ver compra</button>
+                    </div>
+                    <!-- Modal Detalle Compra -->
+                    <div id="modal-{{ idv }}" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:1000;">
+                        <div style="background:#fff; max-width:400px; margin:60px auto; padding:24px; border-radius:10px; position:relative;">
+                            <button onclick="document.getElementById('modal-{{ idv }}').style.display='none'" style="position:absolute; top:10px; right:10px; background:#c0392b; color:#fff; border:none; border-radius:50%; width:28px; height:28px; font-size:18px; cursor:pointer;">&times;</button>
+                            <h3>Detalle de Compra</h3>
+                            <p><strong>Cliente:</strong> {{ v['cliente'] }}</p>
+                            <p><strong>Fecha:</strong> {{ v['fecha'] }} <strong>Hora:</strong> {{ v['hora'] }}</p>
+                            <p><strong>Total:</strong> ${{ v['total'] }}</p>
+                            <h4>Productos:</h4>
+                            <ul style="padding-left:18px;">
+                                {% for p in v['productos'] %}
+                                    <li>{{ p['nombre'] }} x{{ p['cantidad'] }} - ${{ p['subtotal'] }}</li>
+                                {% endfor %}
+                            </ul>
+                            <p><strong>Estado de la compra:</strong>
+                                {% if v['estado'] == '0' %}
+                                    <span style="color:#c0392b; font-weight:bold;">Denegada</span>
+                                {% elif v['confirmada'] %}
+                                    <span style="color:#27ae60; font-weight:bold;">Confirmada</span>
+                                {% else %}
+                                    <span style="color:#f39c12; font-weight:bold;">Pendiente</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

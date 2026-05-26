@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .registro-container {
+            width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .message a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .message a:hover {
+            text-decoration: underline;
+        }
+
+        .flash-messages {
+            list-style: none;
+            padding: 10px;
+            background-color: #ffe6e6;
+            border: 1px solid #ff4d4d;
+            border-radius: 6px;
+            color: #cc0000;
+            margin-bottom: 20px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 38px;
+            right: 12px;
+            cursor: pointer;
+            user-select: none;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .password-toggle:hover {
+            color: #000;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-container label {
+            margin-bottom: 4px;
+        }
+
+        .form-container button {
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="registro-container">
+        <h2>Registro de Clientes</h2>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flash-messages">
+              {% for msg in messages %}
+                <li>{{ msg }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" id="form-registro">
+            <div style="max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:14px;">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" required>
+                <label for="apellido">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" required>
+                <label for="correo">Correo:</label>
+                <input type="email" name="correo" id="correo" required>
+                <label for="confirmar_correo">Confirmar correo:</label>
+                <input type="email" name="confirmar_correo" id="confirmar_correo" required>
+                <label for="telefono">Teléfono:</label>
+                <input type="text" name="telefono" id="telefono" required>
+                <label for="nombrecll">Barrio:</label>
+                <input type="text" name="nombrecll" id="nombrecll" required>
+                <label for="direccion">Dirección:</label>
+                <input type="text" name="direccion" id="direccion" required>
+                <label for="codigopt">Código postal:</label>
+                <input type="text" name="codigopt" id="codigopt" required>
+                <label for="numeroidn">Número de identificación:</label>
+                <input type="text" name="numeroidn" id="numeroidn" required>
+                <label for="clave">Contraseña:</label>
+                <div style="position:relative;">
+                    <input type="password" name="clave" id="clave" required style="width:100%;padding-right:36px;">
+                    <span onclick="togglePassword('clave', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;">
+                        <img src="https://img.icons8.com/ios-glyphs/24/000000/visible--v1.png" id="icon-clave"/>
+                    </span>
+                </div>
+                <label for="confirmar_clave">Confirmar contraseña:</label>
+                <div style="position:relative;">
+                    <input type="password" name="confirmar_clave" id="confirmar_clave" required style="width:100%;padding-right:36px;">
+                    <span onclick="togglePassword('confirmar_clave', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;">
+                        <img src="https://img.icons8.com/ios-glyphs/24/000000/visible--v1.png" id="icon-confirmar_clave"/>
+                    </span>
+                </div>
+                <button type="submit" style="margin-top:18px;">Registrarse</button>
+                <button type="button" id="btn-demo" style="opacity:0.3; font-size:12px; width:120px; margin:8px auto 0 auto; display:block; background:#888; color:#fff; border-radius:4px; border:none;">Demo registro rápido</button>
+            </div>
+        </form>
+        <script>
+        // Botón demo semitransparente, solo autocompleta
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnDemo = document.getElementById('btn-demo');
+            btnDemo.onclick = function() {
+                document.getElementById('nombre').value = 'Demo';
+                document.getElementById('apellido').value = 'Usuario';
+                document.getElementById('correo').value = 'demo' + Math.floor(Math.random()*10000) + '@mail.com';
+                document.getElementById('confirmar_correo').value = document.getElementById('correo').value;
+                document.getElementById('telefono').value = '1234567890';
+                document.getElementById('nombrecll').value = 'Calle Demo';
+                document.getElementById('direccion').value = 'Dirección Demo';
+                document.getElementById('codigopt').value = '12345';
+                document.getElementById('numeroidn').value = '99999' + Math.floor(Math.random()*1000);
+                document.getElementById('clave').value = 'demo123';
+                document.getElementById('confirmar_clave').value = 'demo123';
+            };
+        });
+        </script>
+
+        <p class="message">¿Ya estás registrado? <a href="/JS_SPORT/login">Inicia sesión</a></p>
+    </div>
+
+    <script>
+    function togglePassword(id, el) {
+        var input = document.getElementById(id);
+        var icon = el.querySelector('img');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.src = 'https://img.icons8.com/ios-glyphs/24/000000/closed-eye.png';
+        } else {
+            input.type = 'password';
+            icon.src = 'https://img.icons8.com/ios-glyphs/24/000000/visible--v1.png';
+        }
+    }
+    </script>
+</body>
+</html>
